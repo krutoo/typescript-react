@@ -1,0 +1,24 @@
+{
+  "name": "typescript-react",
+  "type": "module",
+  "private": true,
+  "version": "0.0.0",
+  "license": "Apache-2.0",
+  "scripts": {
+    "dev": "npx --node-options='--import=tsimp/import' rspack serve"
+  },
+  "devDependencies": {
+    "@rspack/cli": "^1.1.4",
+    "@rspack/core": "^1.1.4",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "css-loader": "^7.1.2",
+    "prettier": "^3.4.1",
+    "tsimp": "^2.0.12",
+    "typescript": "^5.7.2"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  }
+}
