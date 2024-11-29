@@ -11,7 +11,7 @@ const config: Configuration = {
   resolve: {
     extensions: [".js", ".jsx", ".ts", ".tsx"],
     tsConfig: {
-      configFile: path.resolve(import.meta.dirname, "./tsconfig.json"),
+      configFile: path.resolve("./tsconfig.json"),
     },
   },
   module: {
@@ -72,6 +72,11 @@ const config: Configuration = {
     port: 1234,
     hot: false,
     liveReload: true,
+    host: "0.0.0.0",
+    allowedHosts: "all",
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+    },
   },
 };
 
