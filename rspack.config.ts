@@ -1,17 +1,17 @@
-import rspack, { Configuration } from "@rspack/core";
-import path from "node:path";
+import rspack, { Configuration } from '@rspack/core';
+import path from 'node:path';
 
 const config: Configuration = {
   entry: {
-    index: "./src/index.tsx",
+    index: './src/index.tsx',
   },
   output: {
-    publicPath: "/",
+    publicPath: '/',
   },
   resolve: {
-    extensions: [".js", ".jsx", ".ts", ".tsx"],
+    extensions: ['.js', '.jsx', '.ts', '.tsx'],
     tsConfig: {
-      configFile: path.resolve("./tsconfig.json"),
+      configFile: path.resolve('./tsconfig.json'),
     },
   },
   module: {
@@ -19,39 +19,39 @@ const config: Configuration = {
       {
         test: /\.(js|jsx|ts|tsx)$/i,
         exclude: /node_modules/,
-        loader: "builtin:swc-loader",
+        loader: 'builtin:swc-loader',
         options: {
           sourceMap: true,
           jsc: {
             parser: {
-              syntax: "typescript",
+              syntax: 'typescript',
               jsx: true,
             },
             transform: {
               react: {
-                runtime: "automatic",
+                runtime: 'automatic',
               },
             },
           },
         },
-        type: "javascript/auto",
+        type: 'javascript/auto',
       },
       {
         test: /\.css$/i,
         use: [
           rspack.CssExtractRspackPlugin.loader,
           {
-            loader: "css-loader",
+            loader: 'css-loader',
             options: {
               url: {
                 // making behavior of import in css same as in html plugin
-                filter: (url: string) => !url.startsWith("/"),
+                filter: (url: string) => !url.startsWith('/'),
               },
               modules: {
                 auto: /\.(module|m)\.css$/i,
-                exportLocalsConvention: "as-is",
+                exportLocalsConvention: 'as-is',
                 namedExport: false,
-                localIdentName: "[name]__[local]--[hash:3]",
+                localIdentName: '[name]__[local]--[hash:3]',
               },
             },
           },
@@ -62,20 +62,20 @@ const config: Configuration = {
   plugins: [
     new rspack.CssExtractRspackPlugin(),
     new rspack.HtmlRspackPlugin({
-      template: "./src/index.html",
-      filename: "index.html",
-      scriptLoading: "module",
-      inject: "body",
+      template: './src/index.html',
+      filename: 'index.html',
+      scriptLoading: 'module',
+      inject: 'body',
     }),
   ],
   devServer: {
     port: 1234,
     hot: false,
     liveReload: true,
-    host: "0.0.0.0",
-    allowedHosts: "all",
+    host: '0.0.0.0',
+    allowedHosts: 'all',
     headers: {
-      "Access-Control-Allow-Origin": "*",
+      'Access-Control-Allow-Origin': '*',
     },
   },
 };

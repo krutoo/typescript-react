@@ -1,5 +1,5 @@
-import { createRoot } from "react-dom/client";
-import "./index.css";
+import { createRoot } from 'react-dom/client';
+import './index.css';
 
 function App() {
   return (
@@ -9,4 +9,4 @@ function App() {
   );
 }
 
-createRoot(document.querySelector("#root")!).render(<App />);
+createRoot(document.querySelector('#root')!).render(<App />);
