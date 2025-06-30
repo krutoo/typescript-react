@@ -1,0 +1,69 @@
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  --modal-transition-duration: 240ms;
+}
+
+.backdrop-pre-opening {
+  background: rgba(0, 0, 0, 0);
+}
+
+.backdrop-opening {
+  background: rgba(0, 0, 0, 0.4);
+  transition: background var(--modal-transition-duration) ease-out;
+}
+
+.backdrop-pre-closing {
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.backdrop-closing {
+  background: rgba(0, 0, 0, 0);
+  transition: background var(--modal-transition-duration) ease-in;
+}
+
+.modal {
+  width: 480px;
+  max-width: 100%;
+  min-height: 320px;
+  background: #fff;
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.modal-pre-opening {
+  opacity: 0;
+  transform: translateY(1rem);
+}
+
+.modal-opening {
+  transition:
+    opacity var(--modal-transition-duration) ease-out,
+    transform var(--modal-transition-duration) ease-out;
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: none;
+  user-select: none;
+}
+
+.modal-pre-closing {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.modal-closing {
+  transition:
+    opacity var(--modal-transition-duration) ease-in,
+    transform var(--modal-transition-duration) ease-in;
+  opacity: 0;
+  transform: scale(0.95);
+}

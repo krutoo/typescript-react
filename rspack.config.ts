@@ -1,7 +1,7 @@
-import rspack, { Configuration } from '@rspack/core';
-import path from 'node:path';
+import type { Configuration } from '@rspack/core';
+import * as plugins from '@krutoo/utils/rspack';
 
-const config: Configuration = {
+export default {
   entry: {
     index: './src/index.tsx',
   },
@@ -9,75 +9,28 @@ const config: Configuration = {
     publicPath: '/',
   },
   resolve: {
-    extensions: ['.js', '.jsx', '.ts', '.tsx'],
-    tsConfig: {
-      configFile: path.resolve('./tsconfig.json'),
+    // comment aliases to use react instead preact
+    alias: {
+      react: 'preact/compat',
+      'react-dom/test-utils': 'preact/test-utils',
+      'react-dom': 'preact/compat',
+      'react/jsx-runtime': 'preact/jsx-runtime',
     },
   },
-  module: {
-    rules: [
-      {
-        test: /\.(js|jsx|ts|tsx)$/i,
-        exclude: /node_modules/,
-        loader: 'builtin:swc-loader',
-        options: {
-          sourceMap: true,
-          jsc: {
-            parser: {
-              syntax: 'typescript',
-              jsx: true,
-            },
-            transform: {
-              react: {
-                runtime: 'automatic',
-              },
-            },
-          },
-        },
-        type: 'javascript/auto',
-      },
-      {
-        test: /\.css$/i,
-        use: [
-          rspack.CssExtractRspackPlugin.loader,
-          {
-            loader: 'css-loader',
-            options: {
-              url: {
-                // making behavior of import in css same as in html plugin
-                filter: (url: string) => !url.startsWith('/'),
-              },
-              modules: {
-                auto: /\.(module|m)\.css$/i,
-                exportLocalsConvention: 'as-is',
-                namedExport: false,
-                localIdentName: '[name]__[local]--[hash:3]',
-              },
-            },
-          },
-        ],
-      },
-    ],
-  },
   plugins: [
-    new rspack.CssExtractRspackPlugin(),
-    new rspack.HtmlRspackPlugin({
-      template: './src/index.html',
-      filename: 'index.html',
-      scriptLoading: 'module',
-      inject: 'body',
-    }),
+    plugins.pluginTypeScript(),
+    plugins.pluginCSS(),
+    plugins.pluginHTML({ template: './src/index.html' }),
   ],
   devServer: {
     port: 1234,
     hot: false,
     liveReload: true,
+    static: false,
     host: '0.0.0.0',
     allowedHosts: 'all',
     headers: {
       'Access-Control-Allow-Origin': '*',
     },
   },
-};
-
-export default config;
+} satisfies Configuration;

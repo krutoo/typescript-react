@@ -13,7 +13,11 @@
     "noUncheckedIndexedAccess": true,
     "noUnusedLocals": true,
     "allowImportingTsExtensions": true,
-    "noImplicitOverride": true
+    "noImplicitOverride": true,
+    "verbatimModuleSyntax": true,
+    "paths": {
+      "#hooks": ["./src/hooks/index.ts"]
+    }
   },
   "exclude": ["node_modules", "dist"]
 }
